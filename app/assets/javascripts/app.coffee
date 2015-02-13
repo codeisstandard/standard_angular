@@ -1,0 +1,2 @@
+sc = angular.module('sc',[
+])
