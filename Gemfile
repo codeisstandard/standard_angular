@@ -27,11 +27,16 @@ gem 'bower-rails'
 
 gem "foreman"
 
+# heroku stuff
 group :production, :staging do
   gem "rails_12factor"
   gem "rails_stdout_logging"
   gem "rails_serve_static_assets"
 end
+
+# allows us to get around some buggy Rails 4 stuff
+gem 'angular-rails-templates'
+
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
