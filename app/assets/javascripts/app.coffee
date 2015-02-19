@@ -1,6 +1,7 @@
 sc = angular.module('sc',[
   'templates',
   'ngRoute',
+  'ngResource',
   'controllers',
 ])
 
@@ -16,29 +17,31 @@ sc.config([ '$routeProvider',
 photos = [
   {
     id: 1
-    name: 'Baked Potato w/ Cheese'
+    name: 'Beach 1'
   },
   {
     id: 2
-    name: 'Garlic Mashed Potatoes',
+    name: 'Awesome stuff',
   },
   {
     id: 3
-    name: 'Potatoes Au Gratin',
+    name: 'Beach 2',
   },
   {
     id: 4
-    name: 'Baked Brussel Sprouts',
+    name: 'Party time!',
   },
 ]
 controllers = angular.module('controllers',[])
-controllers.controller("PhotosController", [ '$scope', '$routeParams', '$location',
-  ($scope,$routeParams,$location)->
+controllers.controller("PhotosController", [ '$scope', '$routeParams', '$location', '$resource'
+  ($scope,$routeParams,$location,$resource)->
     $scope.search = (keywords)->  $location.path("/").search('keywords',keywords)
-
+    Photo = $resource('/photos/index.json', {})
+    
     if $routeParams.keywords
-      keywords = $routeParams.keywords.toLowerCase()
-      $scope.photos = photos.filter (photo)-> photo.name.toLowerCase().indexOf(keywords) != -1
+      #keywords = $routeParams.keywords.toLowerCase()
+      #$scope.photos = photos.filter (photo)-> photo.name.toLowerCase().indexOf(keywords) != -1
+      Photo.query(keywords: $routeParams.keywords, (results)-> $scope.photos = results)
     else
       $scope.photos = []
 ])

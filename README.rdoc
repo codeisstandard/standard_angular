@@ -1,28 +1,56 @@
-== README
+== Standard Angular is a demo site for implementing Angular. Below is a step-by-step guide on what you need to do to make this sweet ass code base siiiiiing
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+* we're going to use bower to manage depenency. first:
+* install node
+  -- brew install node
+    -- we need node installed. long story
+  -- npm install bower
+    -- now we need bower installed (not as a gem. that's to come)
 
-Things you may want to cover:
+* add the following gems:
 
-* Ruby version
+  *gem 'bower-rails'
+    -- dependency management. makes managing things like JQuery 
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+  *gem "foreman"
 
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+* rake -T bower
+
+* Create a bowerfile (in the root, create a file named Bowerfile)
+
+  -- in this file add the following:
+    asset 'angular'
+    asset 'angular-route'
+    asset 'bootstrap-sass-official'
+
+* rake bower:install
+
+* update your application.rb
+    --config.assets.paths << Rails.root.join("vendor","assets","bower_components")
+    --config.assets.paths << Rails.root.join("vendor","assets","bower_components","bootstrap-sass-official","assets","fonts")
+
+    --config.assets.precompile << %r(.*.(?:eot|svg|ttf|woff)$)
+
+* update your application.js file
+  --//= require angular/angular
+  --//= require angular-route/angular-route
+  --//= require angular-rails-templates
+
+* rename your application.css to application.css.scss
+
+* update the application.css.scss
+  --@import "bootstrap-sass-official/assets/stylesheets/bootstrap-sprockets";
+  --@import "bootstrap-sass-official/assets/stylesheets/bootstrap";
+
+
+* create app.coffee
+  update with code
+
+* add Photo model (:name, :url)
+
+* add Photo controller (note the json in index action)
+
+* add views
+  -- index.json.jbuilder
+  -- _photo.json.jbuilder

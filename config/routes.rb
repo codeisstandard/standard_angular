@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
+
   get 'photos/index'
+  get 'photos/new'
+  post 'photos/create', as: :photos
 
   root 'home#index'
   # The priority is based upon order of creation: first created -> highest priority.
